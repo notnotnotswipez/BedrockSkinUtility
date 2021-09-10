@@ -75,7 +75,11 @@ public class GeometryUtil {
                 if (cubes != null) {
                     for (JsonElement node : cubes) {
                         JsonObject cube = node.getAsJsonObject();
-                        boolean mirrored = cube.get("mirror").getAsBoolean();
+                        // Some cubes might not specify that they're mirrored? Untested, however it is an educated guess!
+                        boolean mirrored = true;
+                        if (cube.get("mirror") != null){
+                            mirrored = cube.get("mirror").getAsBoolean();
+                        }
                         JsonArray origin = cube.getAsJsonArray("origin");
                         float originX = origin.get(0).getAsFloat();
                         float originY = origin.get(1).getAsFloat();
